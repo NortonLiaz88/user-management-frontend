@@ -19,7 +19,7 @@ import { toast } from "react-toastify";
 import { authMessages } from "../../utils/auth-messages";
 import { HttpErrorMessage } from "../../models/http/http-error-message";
 import { fetchUserData } from "../../services/user/user.service";
-import { Axios, AxiosError } from "axios";
+import { AxiosError } from "axios";
 
 interface AuthContextData {
   user: any;
@@ -66,6 +66,9 @@ function AuthProvider({ children }: AuthProviderProps) {
         });
         api.defaults.headers.Authorization = `Bearer ${data.token}`;
         setSession(data);
+        const jwtData = await jwtDecode<JwtPayload>(data.token);
+        setUser(jwtData.payload);
+       
         return data;
       } catch (err) {
         if(err instanceof AxiosError) {
@@ -115,11 +118,14 @@ function AuthProvider({ children }: AuthProviderProps) {
       "@challe:token"
     )) as string;
     if (storageToken) {
-      const { exp } = jwtDecode<JwtPayload>(storageToken);
-      if (exp && Date.now() >= exp * 1000) {
+      const data = jwtDecode<JwtPayload>(storageToken);
+      if (data.exp && Date.now() >= data.exp * 1000) {
         secureLocalStorage.removeItem("@challe:token");
         setToken("");
         return;
+      }
+      if(data.payload) {
+        setUser(data.payload);
       }
       api.defaults.headers.Authorization = `Bearer ${storageToken}`;
       setToken(storageToken);

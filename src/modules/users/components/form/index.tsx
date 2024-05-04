@@ -15,6 +15,7 @@ import { Select } from "../../../../components/select";
 import { FormInput } from "../../../../components/input";
 import { UserPermission } from "../../../../enums/user-permission";
 import { EnhancedSwitch } from "../../../../components/switch";
+import { useAuth } from "../../../authentication/use-auth";
 
 interface Props {
   id?: string;
@@ -37,9 +38,12 @@ export const UserForm: React.FC<Props> = ({ id, mode }) => {
     isValid,
   } = useUserForm();
 
+  const {user} = useAuth()
+
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("USER TOKEN",user)
     const initForm = async () => {
       setFormLoading(true);
       if (id) {
@@ -90,7 +94,7 @@ export const UserForm: React.FC<Props> = ({ id, mode }) => {
     <RegisterTemplate
       title={handlePageTitle()}
       mode={currentMode}
-      submitDisabled={!isValid && currentMode !== "view"}
+      submitDisabled={!isValid && currentMode !== "view" || user.permission === UserPermission.Guest}
       cancelAction={() => setOpenCancelModal(true)}
       submitAction={() => handleSubmitForm()}
       editAction={() => setMode("edit")}
