@@ -16,7 +16,6 @@ export class UserManagementService extends BaseResourceFormService<UserEntity> {
     const fields = [];
     if (err instanceof AxiosError) {
       const code = err.response?.status;
-      console.log('code', err.response);
       if (code === 422) {
         if (err?.response?.data?.errors) {
           for (const key of err?.response?.data?.errors ?? []) {

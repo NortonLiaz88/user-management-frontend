@@ -118,21 +118,6 @@ export const BaseDashboard: React.FC = () => {
             </CardContent>
           </Card>
         </Grid>
-
-        <Grid item xs={12} sm={6} md={6}>
-          <Card>
-            <CardContent>
-              {loading ? (
-                <CircularProgress />
-              ) : (
-                <Box>
-                  <KPI labels={kpiData?.labels} values={kpiData?.values}/>
-                </Box>
-              )}
-            </CardContent>
-          </Card>
-        </Grid>
-      
       </Grid>
     </Container>
   );

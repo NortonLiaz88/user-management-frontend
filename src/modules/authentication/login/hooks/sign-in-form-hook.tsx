@@ -153,7 +153,6 @@ export const SignInFormProvider: React.FC<SignInProviderProps> = ({
         navigate("/dashboard");
         return newAuthState;
       } catch (error) {
-        console.log('ERROR', error)
         if (error === HttpError.unauthorized) {
           setSignInError("Credenciais inválidas");
         }

@@ -117,9 +117,7 @@ export const UserFormProvider: React.FC<UserFormProviderProps> = ({
   const getUser = async (value: string) => {
     try {
       const data = await userFormService.getById(value);
-      console.log("DATA", data);
       user.id = data.props.id.toString(); // Convert the id to a string
-      console.log("CURRENT USER ENTITY", data);
       setUser(data?.props ?? ({} as UserEntity));
       reset({
         name: data?.props?.name,
@@ -130,7 +128,6 @@ export const UserFormProvider: React.FC<UserFormProviderProps> = ({
         permission: data?.props?.permission,
         status: data?.props?.status,
       });
-      console.log("CURRENT USER", data);
     } catch (err) {
       const defaultMessage = "Erro ao criar usuário";
       if (err instanceof BaseFormError) {

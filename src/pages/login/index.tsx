@@ -7,7 +7,6 @@ import { Landing } from '../../components/landing/landing-cover';
 import { LandingForm } from '../../components/landing/landing-form';
 
 export const Login: React.FC = () => {
-  console.log('Login');
   return (
     <SignInFormProvider>
       <Container>

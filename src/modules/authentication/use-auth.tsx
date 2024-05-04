@@ -59,9 +59,7 @@ function AuthProvider({ children }: AuthProviderProps) {
   const signIn = useCallback(
     async ({ email, password }: LoginRequest) => {
       try {
-        console.log("EMAIL", email);
         const { data } = await api.post("/auth/login", { email, password });
-        console.log("DATA", data);
         updateToken({
           access_token: data.token,
           refresh_token: data.refreshToken,
@@ -70,7 +68,6 @@ function AuthProvider({ children }: AuthProviderProps) {
         setSession(data);
         return data;
       } catch (err) {
-        console.log("ERROR");
         if(err instanceof AxiosError) {
           if (err.response?.status === 404 || err.response?.status === 400) {
             throw new Error("Usuário ou senha inválidos");

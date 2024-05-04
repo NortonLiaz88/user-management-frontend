@@ -37,7 +37,6 @@ export const RegisterTemplate: React.FC<Props> = ({
   deleteFn,
 }: Props) => {
   React.useEffect(() => {
-    console.log('Current Mode', mode);
   }, [mode]);
   const getCheckIcon = (): React.ReactNode => {
     if (mode === 'edit' || mode === 'view') {

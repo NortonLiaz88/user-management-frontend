@@ -42,13 +42,10 @@ export const UserForm: React.FC<Props> = ({ id, mode }) => {
   useEffect(() => {
     const initForm = async () => {
       setFormLoading(true);
-      console.log("ID", id);
       if (id) {
-        console.log("EDITION");
         await getUser(id);
         console.log(getValues());
       } else {
-        console.log("CREATION");
         setMode("creation");
       }
       setFormLoading(false);
